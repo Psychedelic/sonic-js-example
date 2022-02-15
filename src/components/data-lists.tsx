@@ -4,12 +4,12 @@ import { Liquidity, toBigNumber } from '@psychedelic/sonic-js';
 /**
  * Example of a component that displays the swap canister data
  */
-export const DisplayData = () => {
-  const [tokenList, pairList] = useSwapCanisterLists();
+export const DataLists = () => {
+  const { tokenList, pairList } = useSwapCanisterLists();
 
   return (
     <section>
-      <h1>Swap Controller</h1>
+      <h1>Data Lists</h1>
       <h2>Tokens</h2>
       {tokenList
         ? /**

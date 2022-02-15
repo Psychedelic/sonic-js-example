@@ -3,7 +3,7 @@ import { selectPlugState, useAppSelector } from '@/store';
 
 export const Swap = () => {
   const { principal } = useAppSelector(selectPlugState);
-  const [] = useSwapCanisterLists();
+  const {} = useSwapCanisterLists();
 
   if (!principal) {
     return (
