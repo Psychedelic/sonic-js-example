@@ -1,0 +1,44 @@
+{
+  "name": "sonic-js-example",
+  "version": "1.0.0",
+  "description": "An example of the usage of sonic-js library",
+  "main": "index.js",
+  "author": "Psychedelic Team",
+  "license": "MIT",
+  "dependencies": {
+    "@dfinity/principal": "^0.10.2",
+    "@psychedelic/sonic-js": "../sonic-js",
+    "@reduxjs/toolkit": "^1.7.2",
+    "css-loader": "^6.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "style-loader": "^3.3.1"
+  },
+  "devDependencies": {
+    "@psychedelic/plug-inpage-provider": "^1.6.3",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest-dom": "^4.0.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.5.1",
+    "process": "^0.11.10",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "scripts": {
+    "dev": "webpack-cli serve --open --config webpack.js"
+  }
+}
