@@ -1,24 +1,44 @@
+import {
+  balanceActions,
+  selectBalanceState,
+  useAppDispatch,
+  useAppSelector,
+} from '@/store';
 import { Token } from '@psychedelic/sonic-js';
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useSwapCanisterController } from '.';
 
-export const useSwapCanisterBalances = (
-  principalId?: string
-): { balances?: Token.BalanceList; isLoading: boolean } => {
+export const useSwapCanisterBalances = (): {
+  balanceList?: Token.BalanceList;
+  isLoading: boolean;
+  updateBalanceList: (principalId?: string) => void;
+  balanceOf: string | undefined;
+} => {
   const controller = useSwapCanisterController();
 
-  const [balances, setBalances] = useState<Token.BalanceList>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { balanceList, isLoading, balanceOf } =
+    useAppSelector(selectBalanceState);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (controller) {
-      setIsLoading(true);
-      controller
-        .getTokenBalances(principalId)
-        .then((response) => setBalances(response))
-        .finally(() => setIsLoading(false));
-    }
-  }, [controller]);
+  const updateBalanceList = useCallback(
+    (principalId?: string) => {
+      if (controller) {
+        if (!principalId) {
+          controller.getAgentPrincipal().then((agentPrincipal) => {
+            dispatch(balanceActions.setBalanceOf(agentPrincipal.toString()));
+          });
+        } else {
+          dispatch(balanceActions.setBalanceOf(principalId));
+        }
+        dispatch(balanceActions.setIsLoading(true));
+        controller
+          .getTokenBalances(principalId)
+          .then((response) => dispatch(balanceActions.setBalanceList(response)))
+          .finally(() => dispatch(balanceActions.setIsLoading(false)));
+      }
+    },
+    [controller, dispatch]
+  );
 
-  return { balances, isLoading };
+  return { balanceList, isLoading, updateBalanceList, balanceOf };
 };

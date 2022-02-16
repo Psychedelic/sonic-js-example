@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import plugReducer from '@/store/features/plug-slice';
+import balanceReducer from '@/store/features/balance-slice';
 
 export const store = configureStore({
   reducer: {
     plug: plugReducer,
+    balance: balanceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
