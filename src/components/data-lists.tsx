@@ -2,9 +2,11 @@ import { useSwapCanisterLists } from '@/hooks/use-swap-canister-lists';
 import { Liquidity, toBigNumber } from '@psychedelic/sonic-js';
 
 /**
+ * Data Lists Section React Component
  * Example of a component that displays the swap canister data
  */
-export const DataLists = () => {
+export const DataListsSection = () => {
+  // Use custom hook to get lists
   const { tokenList, pairList } = useSwapCanisterLists();
 
   return (
@@ -12,9 +14,7 @@ export const DataLists = () => {
       <h1>Data Lists</h1>
       <h2>Tokens</h2>
       {tokenList
-        ? /**
-           * Displaying all token list from swap canister
-           */
+        ? // Displaying all token list from swap canister
           Object.values(tokenList).map((token) => (
             <div className="token-card" key={token.id}>
               <h2>{token.name}</h2>

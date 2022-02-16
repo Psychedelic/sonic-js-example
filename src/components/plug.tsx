@@ -7,6 +7,10 @@ import {
 import { Principal } from '@dfinity/principal';
 import { useCallback } from 'react';
 
+/**
+ * Declare plug and it functions
+ * Example of a component that displays plug connection
+ */
 export const plug = (window as any).ic?.plug;
 
 const requestConnect = () =>
@@ -18,11 +22,16 @@ const getPrincipal = () => plug?.getPrincipal();
 
 const requestDisconnect = () => plug?.disconnect();
 
-export const PlugConnection = () => {
+/**
+ * Plug Section React Component
+ */
+export const PlugSection = () => {
+  // Use states from store
   const { principal, isLoading } = useAppSelector(selectPlugState);
   const dispatch = useAppDispatch();
 
-  const connect = useCallback(() => {
+  // Create a function to handle connection and app states
+  const handleConnect = useCallback(() => {
     dispatch(plugActions.setIsLoading(true));
     requestConnect()
       .then(getPrincipal)
@@ -32,7 +41,8 @@ export const PlugConnection = () => {
       .finally(() => dispatch(plugActions.setIsLoading(false)));
   }, [dispatch]);
 
-  const disconnect = useCallback(() => {
+  // Create a function to handle disconnection and app states
+  const handleDisconnect = useCallback(() => {
     requestDisconnect();
     dispatch(plugActions.setPrincipal(undefined));
   }, [dispatch]);
@@ -45,10 +55,10 @@ export const PlugConnection = () => {
       ) : principal ? (
         <>
           {principal.toString()}
-          <button onClick={disconnect}>Disconnect</button>
+          <button onClick={handleDisconnect}>Disconnect</button>
         </>
       ) : (
-        <button onClick={connect}>Connect</button>
+        <button onClick={handleConnect}>Connect</button>
       )}
     </section>
   );
