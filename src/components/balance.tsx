@@ -42,24 +42,36 @@ export const BalanceSection = () => {
           value={findingPrincipalId}
           onChange={(e) => setFindingPrincipalId(e.currentTarget.value)}
         />
+        &nbsp;
         <button onClick={handleGetBalance}>Get Balances</button>
       </div>
-      {/** Render the balance list if is searching a balance for balanceOf from store */}
-      {balanceOf &&
-        (isLoading || !tokenList || !balanceList ? (
-          // Render loading if is loading
-          <span>Loading...</span>
-        ) : (
-          // Render the balance list
-          Object.entries(balanceList).map(([tokenId, balance]) => (
-            <div className="token-card" key={tokenId}>
-              <h2>{tokenList[tokenId].symbol}</h2>
-              <span>Wallet: {balance.token.toString()}</span>
-              <span>Sonic: {balance.sonic.toString()}</span>
-              <span>Total: {balance.total.toString()}</span>
-            </div>
-          ))
-        ))}
+      <div className="card-list">
+        {/** Render the balance list if is searching a balance for balanceOf from store */}
+        {balanceOf &&
+          (isLoading || !tokenList || !balanceList ? (
+            // Render loading if is loading
+            <span>Loading...</span>
+          ) : (
+            // Render the balance list
+            Object.entries(balanceList).map(([tokenId, balance]) => (
+              <div className="token-card" key={tokenId}>
+                <h2>{tokenList[tokenId].symbol}</h2>
+                <span className="data-row">
+                  <label>Wallet:&nbsp;</label>
+                  {balance.token.toString()}
+                </span>
+                <span className="data-row">
+                  <label>Sonic:&nbsp;</label>
+                  {balance.sonic.toString()}
+                </span>
+                <span className="data-row">
+                  <label>Total:&nbsp;</label>
+                  {balance.total.toString()}
+                </span>
+              </div>
+            ))
+          ))}
+      </div>
     </section>
   );
 };

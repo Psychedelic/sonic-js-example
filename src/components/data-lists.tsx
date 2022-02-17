@@ -13,31 +13,42 @@ export const DataListsSection = () => {
     <section>
       <h1>Data Lists</h1>
       <h2>Tokens</h2>
-      {tokenList
-        ? // Displaying all token list from swap canister
-          Object.values(tokenList).map((token) => (
-            <div className="token-card" key={token.id}>
-              <h2>{token.name}</h2>
-              <span>Symbol: {token.symbol}</span>
-              <span>Id: {token.id}</span>
-              <span>Decimals: {token.decimals}</span>
-              <span>
-                Fee:&nbsp;
-                {/* Parsing bigint from responses on swap canister */}
-                {toBigNumber(token.fee)
-                  .applyDecimals(token.decimals)
-                  .toString()}
-              </span>
-              <span>
-                Total Supply:&nbsp;
-                {/* Parsing bigint from responses on swap canister */}
-                {toBigNumber(token.totalSupply)
-                  .applyDecimals(token.decimals)
-                  .toString()}
-              </span>
-            </div>
-          ))
-        : 'Loading...'}
+      <div className="card-list">
+        {tokenList
+          ? // Displaying all token list from swap canister
+            Object.values(tokenList).map((token) => (
+              <div className="token-card" key={token.id}>
+                <h2>{token.symbol}</h2>
+                <span className="data-row">
+                  <label>Name:&nbsp;</label>
+                  {token.name}
+                </span>
+                <span className="data-row">
+                  <label>Id:&nbsp;</label>
+                  {token.id}
+                </span>
+                <span className="data-row">
+                  <label>Decimals:&nbsp;</label>
+                  {token.decimals}
+                </span>
+                <span className="data-row">
+                  <label>Fee:&nbsp;</label>
+                  {/* Parsing bigint from responses on swap canister */}
+                  {toBigNumber(token.fee)
+                    .applyDecimals(token.decimals)
+                    .toString()}
+                </span>
+                <span className="data-row">
+                  <label>Total Supply:&nbsp;</label>
+                  {/* Parsing bigint from responses on swap canister */}
+                  {toBigNumber(token.totalSupply)
+                    .applyDecimals(token.decimals)
+                    .toString()}
+                </span>
+              </div>
+            ))
+          : 'Loading...'}
+      </div>
       <h2>Pairs</h2>
       {pairList && tokenList
         ? /**
@@ -49,39 +60,46 @@ export const DataListsSection = () => {
           Object.values(tokenList).map((token) => (
             <div key={token.id}>
               <h3>{token.symbol} Pairs:</h3>
-              {Object.values(pairList[token.id]).map((pair) => (
-                <div className="token-card" key={pair.token1}>
-                  <h2>{tokenList[pair.token1].symbol}</h2>
-                  <span>
-                    Total Supply:&nbsp;
-                    {/* The decimals number for a pair can be calculated using Liquidity.getPairDecimals */}
-                    {toBigNumber(pair.totalSupply)
-                      .applyDecimals(
-                        Liquidity.getPairDecimals(
-                          tokenList[pair.token0].decimals,
-                          tokenList[pair.token1].decimals
+
+              <div className="card-list">
+                {Object.values(pairList[token.id]).map((pair) => (
+                  <div className="token-card" key={pair.token1}>
+                    <h2>{tokenList[pair.token1].symbol}</h2>
+                    <span className="data-row">
+                      <label>Total Supply:&nbsp;</label>
+                      {/* The decimals number for a pair can be calculated using Liquidity.getPairDecimals */}
+                      {toBigNumber(pair.totalSupply)
+                        .applyDecimals(
+                          Liquidity.getPairDecimals(
+                            tokenList[pair.token0].decimals,
+                            tokenList[pair.token1].decimals
+                          )
                         )
-                      )
-                      .toString()}
-                  </span>
+                        .toString()}
+                    </span>
 
-                  <span>
-                    {tokenList[pair.token0].symbol} Reserve:&nbsp;
-                    {/* Parsing bigint from responses on swap canister */}
-                    {toBigNumber(pair.reserve0)
-                      .applyDecimals(tokenList[pair.token0].decimals)
-                      .toString()}
-                  </span>
+                    <span className="data-row">
+                      <label>
+                        {tokenList[pair.token0].symbol} Reserve:&nbsp;
+                      </label>
+                      {/* Parsing bigint from responses on swap canister */}
+                      {toBigNumber(pair.reserve0)
+                        .applyDecimals(tokenList[pair.token0].decimals)
+                        .toString()}
+                    </span>
 
-                  <span>
-                    {tokenList[pair.token1].symbol} Reserve:&nbsp;
-                    {/* Parsing bigint from responses on swap canister */}
-                    {toBigNumber(pair.reserve1)
-                      .applyDecimals(tokenList[pair.token1].decimals)
-                      .toString()}
-                  </span>
-                </div>
-              ))}
+                    <span className="data-row">
+                      <label>
+                        {tokenList[pair.token1].symbol} Reserve:&nbsp;
+                      </label>
+                      {/* Parsing bigint from responses on swap canister */}
+                      {toBigNumber(pair.reserve1)
+                        .applyDecimals(tokenList[pair.token1].decimals)
+                        .toString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           ))
         : 'Loading...'}

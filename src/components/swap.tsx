@@ -16,12 +16,12 @@ export const SwapSection = () => {
   const { principal } = useAppSelector(selectPlugState);
 
   /**
-   * Create states used for swap
-   *
-   * Notice that we are using Token.Data type because it have amount and metadata keys
+   * Create states used for swap.
+   * Notice that we are using Token.Data type because it have amount
+   * and metadata keys.
    */
-  const [from, setFrom] = useState<Token.Data>({ amount: '' });
-  const [to, setTo] = useState<Token.Data>({ amount: '' });
+  const [from, setFrom] = useState<Token.Data>({ amount: '0' });
+  const [to, setTo] = useState<Token.Data>({ amount: '0' });
   const [isSwapRunning, setIsSwapRunning] = useState<boolean>(false);
 
   /**
@@ -34,6 +34,7 @@ export const SwapSection = () => {
       pairList,
       tokenList,
       tokenId: from.metadata.id,
+      amount: from.amount,
     });
   }, [from, pairList, tokenList]);
 
@@ -105,8 +106,8 @@ export const SwapSection = () => {
 
   // Create a handler for changing "from" token
   const handleFromTokenChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setFrom({ ...from, metadata: tokenList[e.currentTarget.value] });
-    setTo({ metadata: undefined, amount: '' });
+    setFrom({ metadata: tokenList[e.currentTarget.value], amount: '0' });
+    setTo({ metadata: undefined, amount: '0' });
   };
 
   // Create a handler for changing "to" token
@@ -125,44 +126,55 @@ export const SwapSection = () => {
         <span>Swap in progress...</span>
       ) : (
         <>
-          <div>
-            From:
-            <select name="from" onChange={handleFromTokenChange}>
-              <option
-                disabled
-                selected
-                value=""
-                style={{ display: 'none' }}
-              ></option>
-              {/** Show all available tokens for "from" options */}
-              {Object.values(tokenList).map((token) => (
-                <option value={token.id} key={token.id}>
-                  {token.symbol}
-                </option>
-              ))}
-            </select>
-            <input
-              type="number"
-              min={0}
-              value={from.amount}
-              onChange={handleFromAmountChange}
-            />
-          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+            }}
+          >
+            <div>
+              From:&nbsp;
+              <select name="from" onChange={handleFromTokenChange}>
+                <option
+                  disabled
+                  selected
+                  value=""
+                  style={{ display: 'none' }}
+                ></option>
+                {/** Show all available tokens for "from" options */}
+                {Object.values(tokenList).map((token) => (
+                  <option value={token.id} key={token.id}>
+                    {token.symbol}
+                  </option>
+                ))}
+              </select>
+              &nbsp;
+              <input
+                type="number"
+                min={0}
+                defaultValue={0}
+                value={from.amount}
+                onChange={handleFromAmountChange}
+              />
+            </div>
 
-          <div>
-            To:
-            <select name="to" onChange={handleToTokenChange}>
-              <option selected value="" style={{ display: 'none' }}></option>
-              {/** Show just available tokens for "to" options */}
-              {Object.keys(toOptionsList).map((tokenId) => (
-                <option value={tokenId} key={tokenId}>
-                  {tokenList[tokenId].symbol}
-                </option>
-              ))}
-            </select>
-            <input type="number" disabled value={to.amount} />
+            <div>
+              To:&nbsp;
+              <select name="to" onChange={handleToTokenChange}>
+                <option selected value="" style={{ display: 'none' }}></option>
+                {/** Show just available tokens for "to" options */}
+                {Object.keys(toOptionsList).map((tokenId) => (
+                  <option value={tokenId} key={tokenId}>
+                    {tokenList[tokenId].symbol}
+                  </option>
+                ))}
+              </select>
+              &nbsp;
+              <input type="number" disabled value={to.amount} />
+            </div>
           </div>
-
           <button onClick={handleSwap}>Swap</button>
         </>
       )}
