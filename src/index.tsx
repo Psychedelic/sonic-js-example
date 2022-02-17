@@ -5,6 +5,8 @@ import {
   DataListsSection,
   SwapSection,
   BalanceSection,
+  WithdrawSection,
+  DepositSection,
 } from './components';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
@@ -16,6 +18,8 @@ ReactDOM.render(
       <PlugSection />
       <SwapSection />
       <BalanceSection />
+      <DepositSection />
+      <WithdrawSection />
     </main>
   </Provider>,
   document.getElementById('sonic-app-root')
