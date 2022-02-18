@@ -4,7 +4,7 @@ import {
   useSwapCanisterLists,
 } from '@/hooks';
 import { selectPlugState, useAppSelector } from '@/store';
-import { Assets, toBigNumber, Token } from '@psychedelic/sonic-js';
+import { Assets, toExponential, Token } from '@psychedelic/sonic-js';
 import { ChangeEvent, useState } from 'react';
 
 export const WithdrawSection = () => {
@@ -71,13 +71,12 @@ export const WithdrawSection = () => {
         <>
           <div>
             Token:&nbsp;
-            <select name="from" onChange={handleTokenSelect}>
-              <option
-                disabled
-                selected
-                value=""
-                style={{ display: 'none' }}
-              ></option>
+            <select
+              name="from"
+              onChange={handleTokenSelect}
+              value={selectedToken.metadata?.id || ''}
+            >
+              <option value="" style={{ display: 'none' }}></option>
               {/** Show all available tokens for withdraw */}
               {Object.values(tokenList).map((token) => (
                 <option value={token.id} key={token.id}>
@@ -95,9 +94,7 @@ export const WithdrawSection = () => {
               }
               step={
                 selectedToken.metadata &&
-                toBigNumber(1)
-                  .applyDecimals(selectedToken.metadata.decimals)
-                  .toNumber()
+                toExponential(-selectedToken.metadata.decimals).toNumber()
               }
               value={selectedToken.amount}
               onChange={handleAmountChange}
@@ -107,7 +104,7 @@ export const WithdrawSection = () => {
           </div>
           {selectedToken.metadata && (
             <span>
-              Received {selectedToken.metadata.symbol}:&nbsp;
+              <b>Received {selectedToken.metadata.symbol}:&nbsp;</b>
               {Assets.getWithdrawAmount({
                 token: selectedToken.metadata,
                 amount: selectedToken.amount,

@@ -13,8 +13,8 @@ import { useEffect, useState } from 'react';
 export const useSwapCanisterController = () => {
   const { principal } = useAppSelector(selectPlugState);
 
-  const [controller, setController] = useState<SwapCanisterController | null>(
-    null
+  const [controller, setController] = useState<SwapCanisterController>(
+    new SwapCanisterController()
   );
 
   /**
@@ -25,24 +25,18 @@ export const useSwapCanisterController = () => {
    * If Plug extension is installed, we can use plug as a provider.
    */
   useEffect(() => {
-    let actorAdapter: ActorAdapter;
-
     // Verify if there is a principal connected to Plug
-    if (principal) {
-      // Use plug if is present
-      actorAdapter = new ActorAdapter(plug);
-    } else {
-      // Create a default actor if there is no principal
-      actorAdapter = new ActorAdapter();
+    if (principal && plug) {
+      // Use plug as provider
+      const actorAdapter = new ActorAdapter(plug);
+
+      createSwapActor({ actorAdapter }).then((swapActor) => {
+        // Instantiating a SwapCanisterController with the created SwapActor
+        const _controller = new SwapCanisterController(swapActor);
+
+        setController(_controller);
+      });
     }
-
-    // The actorAdapter can be provided or it will be used a default one
-    createSwapActor({ actorAdapter }).then((swapActor) => {
-      // Instantiating a SwapCanisterController with the created SwapActor
-      const _controller = new SwapCanisterController(swapActor);
-
-      setController(_controller);
-    });
 
     // This function is going to be called again if Principal from plug changes
   }, [principal]);

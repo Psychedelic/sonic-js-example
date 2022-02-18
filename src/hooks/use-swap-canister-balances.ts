@@ -37,7 +37,8 @@ export const useSwapCanisterBalances = (): {
             .getAgentPrincipal()
             .then((agentPrincipal) =>
               dispatch(balanceActions.setBalanceOf(agentPrincipal.toString()))
-            );
+            )
+            .catch((error) => alert(error));
         } else {
           dispatch(balanceActions.setBalanceOf(principalId));
         }
@@ -47,6 +48,7 @@ export const useSwapCanisterBalances = (): {
         controller
           .getTokenBalances(principalId)
           .then((response) => dispatch(balanceActions.setBalanceList(response)))
+          .catch((error) => alert(error))
           .finally(() => dispatch(balanceActions.setIsLoading(false)));
       }
     },

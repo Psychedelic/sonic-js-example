@@ -4,7 +4,7 @@ import {
   useSwapCanisterLists,
 } from '@/hooks';
 import { selectPlugState, useAppSelector } from '@/store';
-import { toBigNumber, Token } from '@psychedelic/sonic-js';
+import { Assets, toExponential, Token } from '@psychedelic/sonic-js';
 import { ChangeEvent, useState } from 'react';
 
 export const DepositSection = () => {
@@ -52,10 +52,6 @@ export const DepositSection = () => {
     if (!controller || !selectedToken.metadata) return;
     setIsDepositRunning(true);
 
-    console.log({
-      tokenId: selectedToken.metadata.id,
-      amount: selectedToken.amount,
-    });
     controller
       .deposit({
         tokenId: selectedToken.metadata.id,
@@ -76,13 +72,12 @@ export const DepositSection = () => {
         <>
           <div>
             Token:&nbsp;
-            <select name="from" onChange={handleTokenSelect}>
-              <option
-                disabled
-                selected
-                value=""
-                style={{ display: 'none' }}
-              ></option>
+            <select
+              name="from"
+              onChange={handleTokenSelect}
+              value={selectedToken.metadata?.id || ''}
+            >
+              <option disabled value="" style={{ display: 'none' }}></option>
               {/** Show all available tokens for deposit */}
               {Object.values(tokenList).map((token) => (
                 <option value={token.id} key={token.id}>
@@ -96,13 +91,15 @@ export const DepositSection = () => {
               min={0}
               max={
                 selectedToken.metadata &&
-                balanceList[selectedToken.metadata.id].sonic.toNumber()
+                Assets.getDepositAmount({
+                  token: selectedToken.metadata,
+                  amount:
+                    balanceList[selectedToken.metadata.id].token.toString(),
+                }).toNumber()
               }
               step={
                 selectedToken.metadata &&
-                toBigNumber(1)
-                  .applyDecimals(selectedToken.metadata.decimals)
-                  .toNumber()
+                toExponential(-selectedToken.metadata.decimals).toNumber()
               }
               value={selectedToken.amount}
               onChange={handleAmountChange}
@@ -110,15 +107,15 @@ export const DepositSection = () => {
             &nbsp;
             <button onClick={handleDeposit}>Deposit</button>
           </div>
-          {/* {selectedToken.metadata && (
-              <span>
-                Received {selectedToken.metadata.symbol}:&nbsp;
-                {Assets.get({
-                  token: selectedToken.metadata,
-                  amount: selectedToken.amount,
-                }).toString()}
-              </span>
-            )} */}
+          {selectedToken.metadata && (
+            <span>
+              <b>Needed {selectedToken.metadata.symbol}:&nbsp;</b>
+              {Assets.getDepositAmount({
+                token: selectedToken.metadata,
+                amount: selectedToken.amount,
+              }).toString()}
+            </span>
+          )}
         </>
       )}
     </section>

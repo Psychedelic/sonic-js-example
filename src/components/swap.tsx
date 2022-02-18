@@ -1,7 +1,7 @@
 import { useSwapCanisterBalances, useSwapCanisterController } from '@/hooks';
 import { useSwapCanisterLists } from '@/hooks/use-swap-canister-lists';
 import { selectPlugState, useAppSelector } from '@/store';
-import { Token, Swap } from '@psychedelic/sonic-js';
+import { Token, Swap, Default } from '@psychedelic/sonic-js';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 
 /**
@@ -136,13 +136,12 @@ export const SwapSection = () => {
           >
             <div>
               From:&nbsp;
-              <select name="from" onChange={handleFromTokenChange}>
-                <option
-                  disabled
-                  selected
-                  value=""
-                  style={{ display: 'none' }}
-                ></option>
+              <select
+                name="from"
+                onChange={handleFromTokenChange}
+                value={from.metadata?.id || ''}
+              >
+                <option disabled value="" style={{ display: 'none' }}></option>
                 {/** Show all available tokens for "from" options */}
                 {Object.values(tokenList).map((token) => (
                   <option value={token.id} key={token.id}>
@@ -154,7 +153,6 @@ export const SwapSection = () => {
               <input
                 type="number"
                 min={0}
-                defaultValue={0}
                 value={from.amount}
                 onChange={handleFromAmountChange}
               />
@@ -162,8 +160,12 @@ export const SwapSection = () => {
 
             <div>
               To:&nbsp;
-              <select name="to" onChange={handleToTokenChange}>
-                <option selected value="" style={{ display: 'none' }}></option>
+              <select
+                name="to"
+                onChange={handleToTokenChange}
+                value={to.metadata?.id || ''}
+              >
+                <option value="" style={{ display: 'none' }}></option>
                 {/** Show just available tokens for "to" options */}
                 {Object.keys(toOptionsList).map((tokenId) => (
                   <option value={tokenId} key={tokenId}>
@@ -175,6 +177,16 @@ export const SwapSection = () => {
               <input type="number" disabled value={to.amount} />
             </div>
           </div>
+          {to.metadata && (
+            <span>
+              <b>Minimum {to.metadata.symbol} received:&nbsp;</b>
+              {Swap.getAmountMin({
+                amount: to.amount,
+                decimals: to.metadata.decimals,
+                slippage: Default.SLIPPAGE,
+              }).toString()}
+            </span>
+          )}
           <button onClick={handleSwap}>Swap</button>
         </>
       )}
