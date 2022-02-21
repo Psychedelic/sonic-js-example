@@ -9,7 +9,7 @@
 This project is an example of the usage of [Sonic-js](https://github.com/Psychedelic/sonic-js) library.
 
 - Check out [the library repository](https://github.com/Psychedelic/sonic-js)
-- Check out [the library documentation](https://github.com/Psychedelic/sonic-js/tree/main/docs)
+- Check out [the library documentation](https://docs.sonic.ooo/dev/sonic-js)
 - Visit [our website](https://sonic.ooo/)
 - Read [Sonics's documentation](https://docs.sonic.ooo/)
 - Read [our blog](https://sonic-ooo.medium.com/)
@@ -18,6 +18,9 @@ This project is an example of the usage of [Sonic-js](https://github.com/Psyched
 
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
+  - [Hooks](#hooks)
+  - [Components](#components)
+  - [Store](#store)
 
 ## Getting Started
 
@@ -45,7 +48,7 @@ If the running project not open in your default browser, you can open it on [htt
 
 > ⚠️ This project was developed using [React.js](https://reactjs.org/), but if your application don't use it, you can still getting some ideas in how to apply it on your application by the comments added through the whole project.
 
-The project have an example usage of how interact with the library to fetch and show information. Also provides an example of how to reach a Swap using plug as an identity provider.
+The project have an example usage of how interact with the library to fetch and show information. It is developed trying to be as simple as possible. Also provides an example of how to reach a Swap using plug as an identity provider.
 
 The components present in the project are split in sections to prioritize the usage of each part in given section.
 
