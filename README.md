@@ -16,6 +16,9 @@ This project is an example integration of the [Sonic-js](https://github.com/Psyc
 
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
+  - [Setup Github Configuration](#setup-github-configuration)
+  - [Running Example App](#running-exaple-app)
+- [About the project](#about-the-project)
   - [Hooks](#hooks)
   - [Components](#components)
   - [Store](#store)
@@ -24,7 +27,7 @@ This project is an example integration of the [Sonic-js](https://github.com/Psyc
 
 > ⚠️ We are assuming that you have basic knowledge using [Node.js](https://nodejs.org/) and the environment is already installed.
 
-## Setup Github Configuration
+### Setup Github Configuration
 
 First, we need to setup our authentication on Github Packages. This step is compulsory, even for public packages.
 
@@ -41,7 +44,7 @@ npm login --registry=https://npm.pkg.github.com --scope=@psychedelic
 
 You're all set to use Sonic-js in your cloned sonic-js-example directory!
 
-## Running Example App
+### Running Example App
 
 After cloning the project you need to install dependencies:
 
@@ -61,9 +64,10 @@ If the running project doesn't open in your default browser, you can open it on 
 
 > ⚠️ This project was developed using [React.js](https://reactjs.org/). If your application doesn't use React, you can still getting some ideas in how to apply it on your application by the comments added throughout project.
 
-The project have an example usage of:
-- how interact with the library to fetch and show information from the Sonic canister. 
+The project has examples of how to:
+- Interact with the library to fetch and show information from the Sonic canister. 
 - Connecting to the Sonic Swap canister using [Plug](https://plugwallet.ooo) as an identity provider.
+- Make swaps on behalf of authenticated users.
 
 The components present in the project are split in sections to prioritize the usage of each part in given section.
 
