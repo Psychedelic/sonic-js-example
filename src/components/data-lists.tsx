@@ -69,12 +69,7 @@ export const DataListsSection = () => {
                       <label>Total Supply:&nbsp;</label>
                       {/* The decimals number for a pair can be calculated using Liquidity.getPairDecimals */}
                       {toBigNumber(pair.totalSupply)
-                        .applyDecimals(
-                          Liquidity.getPairDecimals(
-                            tokenList[pair.token0].decimals,
-                            tokenList[pair.token1].decimals
-                          )
-                        )
+                        .applyDecimals(Liquidity.PAIR_DECIMALS)
                         .toString()}
                     </span>
 
