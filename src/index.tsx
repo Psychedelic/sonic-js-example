@@ -7,6 +7,9 @@ import {
   BalanceSection,
   WithdrawSection,
   DepositSection,
+  LiquidityBalanceSection,
+  AddLiquiditySection,
+  RemoveLiquiditySection,
 } from './components';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
@@ -26,6 +29,9 @@ ReactDOM.render(
       <BalanceSection />
       <DepositSection />
       <WithdrawSection />
+      <LiquidityBalanceSection />
+      <AddLiquiditySection />
+      <RemoveLiquiditySection />
     </main>
   </Provider>,
   document.getElementById('sonic-app-root')
