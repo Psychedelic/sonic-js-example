@@ -7,7 +7,7 @@ import {
   BalanceSection,
   WithdrawSection,
   DepositSection,
-  LiquidityBalanceSection,
+  LiquidityPositionSection,
   AddLiquiditySection,
   RemoveLiquiditySection,
 } from './components';
@@ -29,7 +29,7 @@ ReactDOM.render(
       <BalanceSection />
       <DepositSection />
       <WithdrawSection />
-      <LiquidityBalanceSection />
+      <LiquidityPositionSection />
       <AddLiquiditySection />
       <RemoveLiquiditySection />
     </main>
