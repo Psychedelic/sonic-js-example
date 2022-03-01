@@ -6,4 +6,4 @@ export * from './withdraw';
 export * from './deposit';
 export * from './add-liquidity';
 export * from './remove-liquidity';
-export * from './liquidity-balance';
+export * from './liquidity-position';
