@@ -135,6 +135,15 @@
     "@fleekhq/browser-rpc" "^2.0.3"
     json-bigint "^1.0.0"
 
+"@psychedelic/sonic-js@../sonic-js":
+  version "0.1.0"
+  dependencies:
+    "@dfinity/agent" "^0.10.2"
+    "@dfinity/candid" "^0.10.2"
+    "@dfinity/principal" "^0.10.2"
+    bignumber.js "^9.0.2"
+    cross-fetch "^3.1.5"
+
 "@psychedelic/sonic-js@^0.1.0":
   version "0.1.0"
   resolved "https://npm.pkg.github.com/download/@psychedelic/sonic-js/0.1.0/f6cae740731f6548a05a885a1fdf30df3d6c37946c11f5d4f78b5ba95ed65d3f#a4dacd0a0c253d9c0a91fd8f4eb623b38aa5ec49"
