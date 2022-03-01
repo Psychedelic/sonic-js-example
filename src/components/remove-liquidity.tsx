@@ -1,4 +1,5 @@
 import {
+  useSwapCanisterBalances,
   useSwapCanisterController,
   useSwapCanisterLiquidityPosition,
   useSwapCanisterLists,
@@ -20,6 +21,7 @@ export const RemoveLiquiditySection = () => {
   const { pairList, tokenList } = useSwapCanisterLists();
   const { principal } = useAppSelector(selectPlugState);
   const { updateLpList } = useSwapCanisterLiquidityPosition();
+  const { updateBalanceList } = useSwapCanisterBalances();
   const controller = useSwapCanisterController();
 
   // Create states remove liquidity
@@ -119,6 +121,7 @@ export const RemoveLiquiditySection = () => {
         amount: amount,
       })
       .then(() => Promise.resolve(updateLpList()))
+      .then(() => Promise.resolve(updateBalanceList()))
       .catch((error) => alert(`Remove LP failed: ${error}`))
       .finally(() => setIsRemoveRunning(false));
   };
