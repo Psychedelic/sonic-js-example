@@ -1,13 +1,13 @@
 {
   "name": "sonic-js-example",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An example of the usage of sonic-js library",
   "main": "index.js",
   "author": "Psychedelic Team",
   "license": "GPL-3.0",
   "dependencies": {
     "@dfinity/principal": "^0.10.2",
-    "@psychedelic/sonic-js": "../sonic-js",
+    "@psychedelic/sonic-js": "0.2.0",
     "@reduxjs/toolkit": "^1.7.2",
     "css-loader": "^6.6.0",
     "react": "^17.0.2",
