@@ -160,7 +160,7 @@ export const AddLiquiditySection = () => {
     <section>
       <h1>Add Liquidity</h1>
       {isAddRunning ? (
-        <span>Swap in progress...</span>
+        <span>Add liquidity in progress...</span>
       ) : (
         <>
           <div
@@ -222,7 +222,7 @@ export const AddLiquiditySection = () => {
               {resultantLP}
             </span>
           )}
-          <button onClick={handleAddLiquidity}>Swap</button>
+          <button onClick={handleAddLiquidity}>Add Liquidity</button>
         </>
       )}
     </section>
