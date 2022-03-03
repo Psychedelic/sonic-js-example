@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import plugReducer from '@/store/features/plug-slice';
 import balanceReducer from '@/store/features/balance-slice';
+import liquidityPositionReducer from '@/store/features/liquidity-position-slice';
 
 export const store = configureStore({
   reducer: {
     plug: plugReducer,
     balance: balanceReducer,
+    liquidityPosition: liquidityPositionReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

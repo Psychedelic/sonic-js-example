@@ -65,7 +65,8 @@ If the running project doesn't open in your default browser, you can open it on 
 > ⚠️ This project was developed using [React.js](https://reactjs.org/). If your application doesn't use React, you can still getting some ideas in how to apply it on your application by the comments added throughout project.
 
 The project has examples of how to:
-- Interact with the library to fetch and show information from the Sonic canister. 
+
+- Interact with the library to fetch and show information from the Sonic canister.
 - Connecting to the Sonic Swap canister using [Plug](https://plugwallet.ooo) as an identity provider.
 - Make swaps on behalf of authenticated users.
 
@@ -80,6 +81,7 @@ Custom hooks were created to avoid frequently repeated code inside the applicati
 - [useSwapCanisterBalances](src/hooks/use-swap-canister-balances.ts)
 - [useSwapCanisterController](src/hooks/use-swap-canister-controller.ts)
 - [useSwapCanisterLists](src/hooks/use-swap-canister-lists.ts)
+- [useSwapCanisterLiquidityPosition](src/hooks/use-swap-canister-liquidity-position.ts)
 
 ### Components
 
@@ -91,6 +93,9 @@ UI components create to exemplify how to display data:
 - [PlugSection](src/components/plug.tsx)
 - [SwapSection](src/components/swap.tsx)
 - [WithdrawSection](src/components/withdraw.tsx)
+- [LiquidityPositionSection](src/components/liquidity-position.tsx)
+- [AddLiquiditySection](src/components/add-liquidity.tsx)
+- [RemoveLiquiditySection](src/components/remove-liquidity.tsx)
 
 ### Store
 
